@@ -26,7 +26,12 @@ YEAR_OPTIONS = [{"label": str(y), "value": y} for y in VALID_YEARS]
 
 # ---------- Data loading ----------
 def load_data(csv_path: str) -> tuple[pd.DataFrame, list[str]]:
-    df = pd.read_csv(csv_path, sep=";")
+    df = pd.read_csv(
+        csv_path,
+        sep=None,
+        engine="python",
+        encoding="utf-8-sig"
+    )
 
     df["month"] = pd.to_datetime(df["month"], format="%Y-%m")
     df = df.sort_values("month").reset_index(drop=True)
